@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Словарь</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Словарь</h1>
+        <div class="search-container">
+            <input type="text" id="search-input" placeholder="Поиск слов...">
+            <button id="search-button">Поиск</button>
+            <div id="search-results"></div>
+        </div>
+        <script src="search.js"></script>
+        
+        <button id="add-new-word" class="button">Добавить новое слово</button>
+        <button id="start-learn" class="button">Начать обучение</button>
+        <button id="view-statistics" class="button">Посмотреть статистику</button>
+        <nav>
+            <ul id="level-menu">
+                <!-- Levels will be dynamically added here -->
+            </ul>
+        </nav>
+        <div id="word-list"></div>
+        <div id="pagination"></div>
+    </div>
+
+    <!-- Learning Modal -->
+    <div id="learning-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-learning-button">&times;</span>
+            <h3>Начать обучение</h3>
+            <label for="learning-level">Выберите уровень:</label>
+            <select id="learning-level">
+                <!-- Уровни будут загружены динамически -->
+            </select>
+            <label for="learning-filter">Учить:</label>
+            <select id="learning-filter">
+                <option value="all">Все слова</option>
+                <option value="unlearned">Невыученные слова</option>
+            </select>
+            <label for="word-quantity">Выберите количество слов:</label>
+            <select id="word-quantity">
+                <option value="10">10</option>
+                <option value="20">20</option>
+                <option value="30">30</option>
+                <option value="40">40</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+            </select>            
+            <button id="start-training">Начать обучение</button>
+        </div>
+    </div>
+
+    <!-- Training Modal -->
+    <div id="training-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-training-button">&times;</span>
+            <div id="timer">00:00</div> <!-- Элемент для секундомера -->
+            <div id="training-container">
+                <!-- Вопросы обучения будут динамически добавляться здесь -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Word detail modal -->
+    <div id="word-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2 id="word-detail-title"></h2>
+            <div id="translations-container"></div>
+            <button id="add-translation">Добавить перевод</button>
+        </div>
+    </div>
+
+    <!-- Edit translation modal -->
+    <div id="edit-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-edit-button">&times;</span>
+            <h3 id="edit-modal-title">Редактировать перевод</h3>
+            <label for="edit-translation">Перевод:</label>
+            <input type="text" id="edit-translation">
+            <label for="edit-usage">Пример использования:</label>
+            <textarea id="edit-usage"></textarea>
+            <label for="edit-example-translation">Перевод примера:</label>
+            <textarea id="edit-example-translation"></textarea>
+            <button id="save-edit">Сохранить</button>
+        </div>
+    </div>
+
+    <!-- New Word Modal -->
+    <div id="new-word-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-new-word-button">&times;</span>
+            <h3>Добавить новое слово</h3>
+            <label for="new-word-level">Выберите уровень:</label>
+            <select id="new-word-level">
+                <!-- Уровни будут загружены динамически -->
+            </select>
+            <label for="new-word">Слово:</label>
+            <input type="text" id="new-word">
+            <label for="new-translation">Перевод:</label>
+            <input type="text" id="new-translation">
+            <label for="new-usage">Пример использования:</label>
+            <textarea id="new-usage"></textarea>
+            <label for="new-example-translation">Перевод примера:</label>
+            <textarea id="new-example-translation"></textarea>
+            <button id="save-new-word">Сохранить</button>
+        </div>
+    </div>
+
+    <!-- Statistics Modal -->
+    <div id="statistics-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-statistics-button">&times;</span>
+            <h3>Статистика обучения</h3>
+            <table id="statistics-table">
+                <thead>
+                    <tr>
+                        <th>Дата обучения</th>
+                        <th>Время (сек.)</th>
+                        <th>Уровень</th>
+                        <th>Верные ответы</th>
+                        <th>Неверные ответы</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Строки статистики будут добавлены динамически -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+    <script src="learning.js"></script>
+    <script src="statistics.js"></script>
+</body>
+</html>

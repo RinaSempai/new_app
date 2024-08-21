@@ -1,0 +1,431 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 10px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #007BFF;
+}
+
+#word-list {
+    margin-top: 20px;
+}
+
+.word-item {
+    cursor: pointer;
+    color: #007BFF;
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* выравнивание по вертикали, если требуется */
+    padding: 10px 0; /* чтобы добавить немного пространства между словами */
+    border-bottom: 1px solid #ddd; /* опционально, чтобы отделить слова */
+}
+
+.word-item:hover {
+    text-decoration: underline;
+}
+
+#pagination {
+    margin-top: 20px;
+    text-align: center;
+}
+
+#pagination button {
+    margin: 0 5px;
+    padding: 10px 20px;
+    border: none;
+    background-color: #007BFF;
+    color: white;
+    cursor: pointer;
+}
+
+#pagination button:disabled {
+    background-color: #ddd;
+    cursor: not-allowed;
+}
+
+.close-button,
+.close-edit-button {
+    float: right;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+#translations-container {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.translation-item {
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.translation-text {
+    margin-bottom: 5px;
+}
+
+.edit-button {
+    background-color: #28a745;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 3px;
+    margin-top: 5px;
+}
+
+.edit-button:hover {
+    background-color: #218838;
+}
+
+button#add-translation {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+button#add-translation:hover {
+    background-color: #0056b3;
+}
+
+#edit-modal input,
+#edit-modal textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+}
+
+#edit-modal button {
+    padding: 10px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+#edit-modal button:hover {
+    background-color: #0056b3;
+}
+
+.word-checkbox {
+    margin-left: auto;
+}
+
+.delete-button {
+    background-color: #dc3545;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 3px;
+    margin-left: 5px;
+    margin-top: 5px;
+}
+
+.delete-button:hover {
+    background-color: #c82333;
+}
+
+/* Общие стили для модальных окон */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* Сделаем фон чуть темнее */
+    justify-content: center;
+    align-items: center;
+    overflow-y: auto;
+}
+
+.modal-content {
+    background: #fff;
+    padding: 30px; /* Увеличим отступы для более комфортного заполнения */
+    border-radius: 10px; /* Закруглим углы */
+    width: 80%; /* Уменьшим ширину, чтобы было меньше пустого пространства */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Добавим тень для глубины */
+    position: relative;
+    animation: modalFadeIn 0.3s ease; /* Добавим плавное появление окна */
+    max-width: 90%; /* Максимальная ширина контента в модальном окне */
+    overflow-y: auto; /* Добавляем прокрутку внутри модального окна */
+    box-sizing: border-box; /* Включаем отступы и границы в общую ширину и высоту */
+}
+
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.close-new-word-button {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 24px;
+    cursor: pointer;
+    color: #333; /* Сделаем цвет кнопки закрытия темнее */
+    transition: color 0.3s ease;
+}
+
+.close-new-word-button:hover {
+    color: #007BFF; /* Изменим цвет на синий при наведении */
+}
+
+.modal-content h3 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 24px; /* Сделаем заголовок чуть крупнее */
+    text-align: center; /* Центрируем заголовок */
+}
+
+.modal-content label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.modal-content input,
+.modal-content textarea,
+.modal-content select {
+    width: calc(100% - 20px); /* Сделаем поля чуть меньше, чтобы отступы были аккуратнее */
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.modal-content textarea {
+    height: 80px; /* Увеличим высоту текстового поля */
+    resize: none;
+}
+
+button#save-new-word {
+    padding: 12px 20px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px; /* Сделаем текст кнопки крупнее */
+    transition: background-color 0.3s ease;
+    display: block;
+    width: 100%; /* Кнопка будет занимать всю ширину */
+    box-sizing: border-box;
+}
+
+button#save-new-word:hover {
+    background-color: #0056b3; /* Сделаем цвет кнопки темнее при наведении */
+}
+
+/* Чтобы контейнер стал относительным */
+.container {
+    position: relative;
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Кнопка удаления рядом с каждым словом */
+.delete-word-button {
+    background-color: #dc3545;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 3px;
+    margin-left: 10px;
+    font-size: 0.9em;
+    transition: background-color 0.3s ease;
+}
+
+.delete-word-button:hover {
+    background-color: #c82333;
+}
+
+/* Для лучшего выравнивания */
+.word-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+#learn-modal {
+    display: none; /* Или flex, если вы хотите, чтобы оно отображалось по умолчанию */
+    /* Другие стили для модального окна */
+}
+
+/* Кнопка закрытия для модального окна обучения */
+.close-learning-button,
+.close-training-button,
+.close-statistics-button {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 24px;
+    cursor: pointer;
+    color: #333; /* Темный цвет по умолчанию */
+    transition: color 0.3s ease;
+}
+
+.close-learning-button:hover,
+.close-training-button:hover,
+.close-statistics-button:hover {
+    color: #007BFF; /* Синий цвет при наведении */
+}
+
+/* Кнопка "Начать обучение" */
+#start-training,
+#submit-answer {
+    padding: 12px 20px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    display: block;
+    width: 97%;
+    box-sizing: border-box;
+}
+
+#start-training:hover,
+#submit-answer:hover {
+    background-color: #0056b3;
+}
+
+/* Стили для контейнера кнопок */
+.button-container {
+    position: relative;
+    margin-top: 20px; /* Расстояние сверху, если нужно */
+}
+
+/* Общие стили для кнопок */
+.button {
+    padding: 12px 20px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px; /* Размер шрифта */
+    transition: background-color 0.3s ease;
+    display: block;
+    width: auto; /* Кнопка занимает только нужную ширину */
+    margin: 0 0 10px auto; /* Сдвигает кнопку по правому краю */
+}
+
+.button:hover {
+    background-color: #0056b3; /* Цвет кнопки при наведении */
+}
+
+/* Контейнер для таблицы с горизонтальной прокруткой */
+#statistics-table-container {
+    overflow-x: auto; /* Добавляет горизонтальную прокрутку при необходимости */
+    margin-top: 20px; /* Отступ сверху для таблицы */
+}
+
+/* Стили для таблицы */
+#statistics-table {
+    width: 100%; /* Таблица занимает всю доступную ширину */
+    border-collapse: collapse; /* Убирает двойные границы */
+}
+
+#statistics-table th, #statistics-table td {
+    border: 1px solid #ddd; /* Граница для ячеек таблицы */
+    padding: 8px; /* Отступы внутри ячеек */
+    text-align: left; /* Выравнивание текста в ячейках по левому краю */
+}
+
+#statistics-table th {
+    background-color: #f2f2f2; /* Цвет фона для заголовков таблицы */
+    font-weight: bold; /* Жирный текст для заголовков */
+}
+
+#statistics-table td {
+    word-wrap: break-word; /* Перенос слов, если они не помещаются */
+}
+
+.search-container {
+    margin: 20px 0;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    display: block; /* Изменено с flex на block */
+}
+
+#search-input {
+    width: calc(100% - 120px); /* Учитываем ширину кнопки и отступы */
+    padding: 10px;
+    margin-right: 10px;
+    box-sizing: border-box; /* Чтобы ширина учитывала отступы и границы */
+}
+
+#search-button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+#search-button:hover {
+    background-color: #45a049;
+}
+
+#search-results {
+    margin-top: 20px;
+    overflow-y: auto;
+    clear: both; /* Чтобы результаты отображались ниже поиска */
+}
+
+.search-result {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
